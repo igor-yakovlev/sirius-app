@@ -1,15 +1,48 @@
 import Head from 'next/head'
 import { css } from '@emotion/css';
 import backgroundImage from '../images/background-menu.jpg'
-import React from 'react';
+import React, { BaseSyntheticEvent, useState } from 'react';
 import Button from "../components/Button";
-import Title from "../components/Title";
 import InputRange from "../components/InputRange";
 import InputRadio from "../components/InputRadio";
+import Link from "next/link";
+import CustomRange from "../components/CustomRange";
+
+const data = ['2', '3', '4', '5'];
+const data1 = ['A', '9', '19', '50', '99', '999'];
+
+
+const initialState = {
+  countSubject: '2',
+  values: 2,
+  direction: 'ascending'
+};
+
+const mapValues: Record<number, string> = {
+  1: "A",
+  2: "9",
+  3: "19",
+  4: "50",
+  5: "99",
+  6: "999"
+};
+
+const getValues = (values: number = 1) => mapValues[values];
+
 
 export default function Home() {
-  const data = ['2', '3', '4', '5'];
-  const data1 = ['A', '9', '19', '50', '99', '999'];
+  const [formData, setFormData] = useState(initialState);
+  const [direction, setDirection] = useState('ascending');
+
+  const handleChange = (e: BaseSyntheticEvent) => {
+    const {name, value} = e.target;
+
+    setFormData(state => ({...state, [name]: value}))
+  }
+
+  const directionChange = (e: BaseSyntheticEvent) => {
+    setDirection(e.target.value);
+  }
 
   return (
     <>
@@ -41,15 +74,35 @@ export default function Home() {
             flex-direction: column;
             align-items: center;
           `}>
-            <div className={css`width: 366px; margin-bottom: 53px;`}><InputRange id={'subject'} data={data} label={'Кол-во предметов'} min={2} max={5}/></div>
-
-            <div className={css`width: 531px; margin-bottom: 53px;`}><InputRange id={'importance'} data={data1} label={'Значения'} min={1} max={6}/></div>
-
-            <div className={css`display: flex; gap: 36px; width: 100%; margin-bottom: 92px;`}>
-              <InputRadio id={'radio-1'} value={"1"} label={'По возрастанию'}/>
-              <InputRadio id={'radio-2'} value={"2"} label={'По убыванию'}/>
+            <div className={css`
+              width: 366px;
+              margin-bottom: 53px;`}>
+              <InputRange id={'subject'} data={data} label={'Кол-во предметов'} onChange={handleChange}
+                          name={'countSubject'} min={2} max={5} value={formData.countSubject}/>
             </div>
-            <Button>Играть</Button>
+
+            <div className={css`
+              width: 531px;
+              margin-bottom: 53px;`}>
+              <InputRange id={'importance'} data={data1} label={'Значения'} onChange={handleChange}
+                          name={'values'} min={1} max={6} value={formData.values}/>
+            </div>
+
+            <div className={css`display: flex;
+              gap: 36px;
+              width: 100%;
+              margin-bottom: 92px;`}
+                 onChange={directionChange}
+            >
+              <InputRadio id={'radio-1'} name={'direction'} value={'ascending'} label={'По возрастанию'}
+                          onChange={handleChange} checked={direction === 'ascending'}/>
+              <InputRadio id={'radio-2'} name={'direction'} value={'descending'} label={'По убыванию'}
+                          onChange={handleChange} checked={direction === 'descending'}/>
+            </div>
+            <Link href={{pathname: '/game', query: {...formData, values: getValues(formData.values)}}}>
+              <Button>Играть</Button>
+            </Link>
+
           </form>
         </div>
       </main>

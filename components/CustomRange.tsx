@@ -14,8 +14,11 @@ interface Props {
   value: string;
 }
 
+const CustomRange: FC<Props> = ({data, label, min, max, id, onChange, name, value}) => {
 
-const InputRange: FC<Props> = ({data, label, min, max, id, onChange, name, value}) => {
+  const handleChange = (e: BaseSyntheticEvent) => {
+    const {name, value} = e.target;
+  }
 
   return (
     <div>
@@ -49,9 +52,9 @@ const InputRange: FC<Props> = ({data, label, min, max, id, onChange, name, value
           box-shadow: 0 0 2px 0 #555;
           transition: background .3s ease-in-out;
         }
-      `} type={"range"} id={name} min={min} max={max} list={id} name={name} value={value} onChange={onChange}/>
+      `} type={"range"} id={name} min={min} max={max} list={id} name={name} value={getValues(value, numFromStringMap)} onChange={handleChange}/>
     </div>
   )
 }
 
-export default InputRange;
+export default CustomRange;
