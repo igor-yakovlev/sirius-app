@@ -8,17 +8,12 @@ interface Props {
   label: string;
   name: string;
   checked: boolean;
-  onChange: (e: {
-    target: {
-      name: string;
-      value: boolean;
-    };
-  }) => void;
+  onChange: (e: BaseSyntheticEvent) => void;
 }
 
 const InputRadio: FC<Props> = ({id, value, label, name, checked, onChange}) => {
   const handleChange = (e: BaseSyntheticEvent) =>
-    onChange({ target: { name: e.target.name, value: e.target.value } });
+    onChange(e);
   return (
     <>
       <input className={css`

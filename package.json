@@ -16,7 +16,9 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
     "react-frame-component": "^5.2.3",
-    "react-usestateref": "^1.0.8"
+    "react-id-generator": "^3.0.2",
+    "react-usestateref": "^1.0.8",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@types/node": "18.11.7",

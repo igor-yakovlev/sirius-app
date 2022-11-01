@@ -5,14 +5,16 @@ import { useDrop } from 'react-dnd'
 import { ItemTypes } from './ItemTypes'
 import deskWood from '../images/container/container1.png';
 import Round from "./Round";
-import { RoundItem } from "./functions";
 import GameElement from "./GameElement";
+import { GameItem, RoundItem } from "./types/types";
+import { GameArray } from "../pages/game";
 
 interface Props {
-  items: RoundItem[];
+  items: GameArray;
+  direction: string | string[];
 }
 
-const Desk: FC<Props> = ({items}) => {
+const Desk: FC<Props> = ({items, direction}) => {
   const [{canDrop, isOver, getDropResult}, drop] = useDrop(() => ({
     accept: ItemTypes.BOX,
     drop: () => ({name: 'Desk'}),
@@ -32,6 +34,7 @@ const Desk: FC<Props> = ({items}) => {
       display: flex;
       gap: 4px;
       justify-content: center;
+      flex-direction: ${direction === 'ascending' ? 'row': 'row-reverse'};
       padding: 0 30px;
       align-items: center;
     `}>
@@ -41,7 +44,7 @@ const Desk: FC<Props> = ({items}) => {
             <Round key={item.id}/>
           ) :
             (
-              <GameElement key={item.id} data={item}/>
+              <GameElement key={item.id} data={item as GameItem}/>
             )
 
         })

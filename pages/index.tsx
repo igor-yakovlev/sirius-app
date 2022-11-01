@@ -6,7 +6,6 @@ import Button from "../components/Button";
 import InputRange from "../components/InputRange";
 import InputRadio from "../components/InputRadio";
 import Link from "next/link";
-import CustomRange from "../components/CustomRange";
 
 const data = ['2', '3', '4', '5'];
 const data1 = ['A', '9', '19', '50', '99', '999'];
@@ -36,10 +35,8 @@ export default function Home() {
 
   const handleChange = (e: BaseSyntheticEvent) => {
     const {name, value} = e.target;
-
     setFormData(state => ({...state, [name]: value}))
   }
-
   const directionChange = (e: BaseSyntheticEvent) => {
     setDirection(e.target.value);
   }

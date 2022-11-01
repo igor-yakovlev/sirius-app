@@ -2,7 +2,8 @@ import type { FC } from 'react'
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from './ItemTypes'
 import { css } from "@emotion/css";
-import { GameItem } from "./functions";
+import { GameItem } from "./types/types";
+
 
 interface BoxProps {
   data: GameItem;
@@ -39,7 +40,7 @@ export const Box: FC<BoxProps> = ({data, onDrop}) => {
         cursor: move;
         background: transparent;
         opacity: ${opacity};
-      `} src={data.img.src} alt={'cakes'}/>
+      `} src={data.img!.src} alt={'cakes'}/>
       <span className={css`
         position: absolute;
         opacity: ${opacity};

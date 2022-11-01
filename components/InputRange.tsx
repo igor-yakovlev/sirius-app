@@ -11,7 +11,7 @@ interface Props {
   id: string;
   onChange?: (e: BaseSyntheticEvent) => void;
   name: string;
-  value: string;
+  value: number | string;
 }
 
 

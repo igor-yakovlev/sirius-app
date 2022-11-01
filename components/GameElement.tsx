@@ -1,7 +1,8 @@
-import React from 'react';
 import type { FC } from 'react';
+import React from 'react';
 import { css } from "@emotion/css";
-import { GameItem } from "./functions";
+import { GameItem } from './types/types';
+
 
 interface Props {
   data: GameItem;
@@ -17,7 +18,7 @@ const GameElement: FC<Props> = ({data}) => {
         background: transparent;
         width: 131px;
         height: 131px;
-      `} src={data.img.src} alt={'cakes'}/>
+      `} src={data.img!.src} alt={'cakes'}/>
       <span className={css`
         position: absolute;
         left: 50%;
